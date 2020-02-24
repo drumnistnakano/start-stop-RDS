@@ -2,18 +2,17 @@ import boto3
 import os
  
 def lambda_handler(event, context):
-    cluster = event['Clusters']
+    instance = event['instances']
     rds = boto3.client('rds')
-    # instance = rds.Instance(instances)
     if event['Action'] == 'START':
         try:
-            rds.start_db_cluster(DBClusterIdentifier=cluster)
+            rds.start_db_instance(DBInstanceIdentifier = instance)
         except Exception as error:
             call_sns(str(error), event['Action'])
             return 2
     elif event['Action'] == 'STOP':
         try:
-            rds.stop_db_cluster(DBClusterIdentifier=cluster)
+            rds.stop_db_instance(DBInstanceIdentifier = dbinstance)
         except Exception as error:
             call_sns(str(error), event['Action'])
             return 2
