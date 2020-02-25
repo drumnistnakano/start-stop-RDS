@@ -12,7 +12,7 @@ def lambda_handler(event, context):
             return 2
     elif event['Action'] == 'STOP':
         try:
-            rds.stop_db_instance(DBInstanceIdentifier = dbinstance)
+            rds.stop_db_instance(DBInstanceIdentifier = instance)
         except Exception as error:
             call_sns(str(error), event['Action'])
             return 2
